@@ -10,8 +10,8 @@ Assessment steps
 Bonus, recolor the cubes.
 Bonus++ let me select a color to change a cube to.
 
-how to run 
-npm install
-npm run dev 
+how to run: 
+1. npm install
+2. npm run dev 
 
 ![Screen Shot 2025-07-09 at 11 41 47 AM](https://github.com/user-attachments/assets/85e290bb-eab9-4bd3-bced-05b8b42bcb40)
