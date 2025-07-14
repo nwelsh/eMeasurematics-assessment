@@ -29,9 +29,7 @@ function Cube({
 
   // clicking on each cube should give you mesh data and each mesh should have a UUID or some other three.js identification that you can then place into the react panel
   return (
-    // mesh: https://threejs.org/docs/#api/en/materials/MeshBasicMaterial
-    // box: https://threejs.org/docs/?q=boxg#api/en/geometries/BoxGeometry
-    // raycasting is done in onPointerDown
+    // raycasting is onPointerDown
     <mesh position={position} ref={meshRef} onPointerDown={onClick} uuid={name}>
       <boxGeometry args={[1, 1, 1]} />
       <meshStandardMaterial color={color} />
@@ -69,7 +67,7 @@ export default function App() {
   return (
     <div className="canvas">
       <div className="left">
-        <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
+        <Canvas>
           {/* lighting to see the cubes */}
           <ambientLight intensity={0.5} />
           <directionalLight position={[1, 1, 1]} />
