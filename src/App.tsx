@@ -41,13 +41,16 @@ export default function App() {
   const [selectedCube, setSelectedCube] = useState<{
     uuid: string;
     color: string;
+    cubeName: string;
   } | null>(null);
 
   const handleCubeClick = (e: any) => {
     const mesh = e.object as Mesh;
     const material = mesh.material as MeshStandardMaterial | undefined;
 
-    // material can be an array
+    console.log(material)
+
+    // material can be an array, output is RGBA + boolean
     const color = material?.color?.getHexString()
       ? `#${material.color.getHexString()}`
       : "#ffffff";
@@ -55,17 +58,21 @@ export default function App() {
     setSelectedCube({
       uuid: mesh.uuid,
       color,
+      cubeName: selectedCube?.cubeName || 'leftCube'
     });
   };
 
   const handleColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!selectedCube) return;
+
+    console.log("cube name", selectedCube.cubeName)
     const newColor = e.target.value;
     setSelectedCube((prev) => (prev ? { ...prev, color: newColor } : prev));
   };
 
   return (
     <div className="canvas">
+      {/* Left side, canvas. Right side, react panel */}
       <div className="left">
         <Canvas>
           {/* lighting to see the cubes */}
@@ -75,22 +82,22 @@ export default function App() {
           <Cube
             position={[-1, 0, 0]}
             color={
-              selectedCube?.uuid === "leftCube" ? selectedCube.color : "#F00CEC"
+              selectedCube?.cubeName === "leftCube" ? selectedCube.color : "#F00CEC"
             }
             onClick={handleCubeClick}
             name="leftCube"
-            selected={selectedCube?.uuid === "leftCube"}
+            selected={selectedCube?.cubeName === "leftCube"}
           />
           <Cube
             position={[1, 0, 0]}
             color={
-              selectedCube?.uuid === "rightCube"
+              selectedCube?.cubeName === "rightCube"
                 ? selectedCube.color
                 : "#F01A0C"
             }
             onClick={handleCubeClick}
             name="rightCube"
-            selected={selectedCube?.uuid === "rightCube"}
+            selected={selectedCube?.cubeName === "rightCube"}
           />
         </Canvas>
       </div>
@@ -106,6 +113,7 @@ export default function App() {
             <p>
               <b>COLOR:</b> {selectedCube.color}
             </p>
+            {/* Bonus, recolor the cubes,  let me select a color to change a cube to */}
             <p className="change-color">
               <b>Change color of selected cube: </b>
               <input
